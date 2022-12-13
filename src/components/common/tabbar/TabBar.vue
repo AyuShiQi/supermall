@@ -17,21 +17,26 @@ export default {
 
 <style>
     #appContent {
+        position: fixed;
+        left: 0;
+        bottom: 0;
         display: flex;
         width: 100%;
         height: 100vh;
         background-color: var(--color-text);
+        background: #efefed;
         flex-direction: column;
     }
 
     #appContent #mainContent {
-        height: 400px;
-        background-color: #fff;
+        overflow-y: scroll;
+        height: 100vh;
         flex: 9 1;
     }
 
     #appContent #tabBar {
         display: flex;
+        width: 100%;
         height: 49px;
         padding: 5px;
         border-top: 1px solid #e5e5e5;

@@ -1,13 +1,15 @@
 <template>
-  <div class="nav-bar">
-    <div class="left">
-      <slot name="left"></slot>
-    </div>
-    <div class="center">
-      <slot name="center"></slot>
-    </div>
-    <div class="right">
-      <slot name="right"></slot>
+  <div class="nav-bar-content">
+    <div class="nav-bar">
+      <div class="left">
+        <slot name="left"></slot>
+      </div>
+      <div class="center">
+        <slot name="center"></slot>
+      </div>
+      <div class="right">
+        <slot name="right"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +21,17 @@ export default {
 </script>
 
 <style>
-    .nav-bar {
+
+    .nav-bar-content {
+      width: 100%;
+      height: 44px;
+    }
+
+    .nav-bar-content .nav-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9;
         display: flex;
         width: 100%;
         height: 44px;
@@ -31,13 +43,13 @@ export default {
         align-items: center;
     }
 
-    .nav-bar .left,
-    .nav-bar .right {
+    .nav-bar-content .nav-bar .left,
+    .nav-bar-content .nav-bar .right {
         width: 60px;
         height: 100%;
     }
 
-    .nav-bar .center {
+    .nav-bar-content .nav-bar .center {
         display: flex;
         height: 100%;
         flex: 1;

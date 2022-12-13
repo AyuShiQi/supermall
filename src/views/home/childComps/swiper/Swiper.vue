@@ -61,7 +61,7 @@ export default {
         overflow: hidden;
         width: 100%;
         height: 202px;
-        background-color: pink;
+        background-color: #fff;
     }
 
     #swipercom #swiperIndex {

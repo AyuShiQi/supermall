@@ -29,6 +29,7 @@ body {
     /* webkit苹果浏览器引擎，tap点击，highlight北京高亮，color颜色，颜色用数值调节 */
     -webkit-tap-highlight-color: transparent;
     color: var(--color-text);
+    background-color: #edeeeb;
     /* rem vw/vh */
     width: 100vw;
 }
@@ -57,4 +58,8 @@ a {
 
 .right {
     float: right;
+}
+
+li {
+    list-style: none;
 }
