@@ -7,6 +7,8 @@
     /* 导航背景颜色 */
     --color-tint: #ff8198;
     --color-background: #fff;
+    --color-green: #56a938;
+    --color-red: #ff6456;
     --font-size: 14px;
     --line-height: 1.5;
 
@@ -62,4 +64,8 @@ a {
 
 li {
     list-style: none;
+}
+
+button {
+    border: none;
 }

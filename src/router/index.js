@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 let HomeView = () => import('@/views/home/HomeView');
-let DetailView = ()=>import('@/views/detail/DetailView');
+
+import Detail from './detail';
 
 Vue.use(VueRouter)
 
@@ -16,11 +17,7 @@ const routes = [
     name: 'home',
     component: HomeView
   },
-  {
-    path: '/detail/:iid',
-    name: 'detail',
-    component: DetailView
-  }
+  Detail
 ]
 
 const router = new VueRouter({

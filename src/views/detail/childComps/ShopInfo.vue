@@ -18,8 +18,14 @@
                 </li>
             </ul>
             <ul class="right">
-
+                <li v-for="score in shopInfo?.score" :key="score.name" :class="{'better-score': score.isBetter}">
+                    <span>{{score.name}}</span>
+                    <span class="score">{{score.score}}</span>
+                </li>
             </ul>
+        </div>
+        <div class="footer-bottom">
+            <a class="goto-btn" :href="shopInfo?.shopUrl" >进店逛逛</a>
         </div>
     </div>
 </template>
@@ -28,14 +34,15 @@
 export default {
     name: 'ShopInfo',
     props: ['shopInfo'],
-    computed: {
-    },
     methods: {
         numberWithUnit(num) {
             if(num>=10000) {
                 return (num/10000).toFixed(1)+'万';
             }
             return num;
+        },
+        gotoShop() {
+
         }
     }
 }
@@ -44,10 +51,10 @@ export default {
 <style>
     #shopInfoContent {
         width: 100%;
-        height: 280px;
+        height: 252px;
         padding: 20px 10px;
         border-bottom: 5px solid #f5f5f5;
-        background-color: pink;
+        background-color: #fff;
     }
 
     #shopInfoContent .title {
@@ -77,7 +84,7 @@ export default {
     #shopInfoContent .else-info {
         display: flex;
         width: 100%;
-        height: 150px;
+        height: 120px;
         padding: 10px 0;
         background-color: #fff;
         align-items: center;
@@ -105,4 +112,57 @@ export default {
     #shopInfoContent .else-info .number {
         font-size: 20px;
     }
+
+    #shopInfoContent .else-info .right {
+        width: 50%;
+        padding-left: 30px;
+        flex-direction: column;
+    }
+
+    #shopInfoContent .else-info .right li {
+        position: relative;
+        padding: 4px 0;
+    }
+
+    #shopInfoContent .else-info .right li .score {
+        padding-left: 5px;
+        color: var(--color-green);
+    }
+
+    #shopInfoContent .else-info .right li::after {
+        content: "低";
+        position: absolute;
+        right: 30px;
+        width: 15px;
+        height: 18px;
+        color: #fff;
+        background-color: var(--color-green);
+    }
+
+    #shopInfoContent .else-info .right .better-score .score {
+        color: var(--color-green);
+        color: var(--color-red);
+    }
+
+    #shopInfoContent .else-info .right .better-score::after {
+        content: "高";
+        background-color: var(--color-red);
+    }
+
+    #shopInfoContent .footer-bottom {
+        text-align: center;
+    }
+
+    #shopInfoContent .goto-btn {
+        display: inline-block;
+        width: 150px;
+        height: 36px;
+        color: var(--color-text);
+        background-color: #f1f5f9;
+        text-align: center;
+        line-height: 36px;
+        border-radius: 15px;
+    }
+
+
 </style>

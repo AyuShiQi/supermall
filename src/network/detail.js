@@ -9,3 +9,9 @@ export let getGoodWithIID = iid => {
         }
     })
 }
+
+export let getRecommend = () => {
+    return request({
+        url: '/recommend'
+    })
+}
