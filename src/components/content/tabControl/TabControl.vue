@@ -1,7 +1,7 @@
 <template>
   <ul class="tab-control">
-    <li v-for="(item,i) in title" :key="item" @click="changeOption(i)" :class="{active: currentIndex==i}">
-        {{item}}
+    <li v-for="(item,i) in title" :key="item.sort" @click="changeOption(i,item.sort)" :class="{active: currentIndex==i}">
+        {{item.title}}
     </li>
   </ul>
 </template>
@@ -10,8 +10,13 @@
 export default {
     name: 'TabControl',
     props: {
-        title: Array,
-        default: []
+        title: {
+            type: Array,
+            default: []
+        },
+        changeViewGoods: {
+            type: Function
+        }
     },
     data() {
         return {
@@ -19,8 +24,12 @@ export default {
         }
     },
     methods: {
-        changeOption(index) {
+        changeOption(index,sort) {
             this.currentIndex = index;
+            this.changeGoods(sort);
+        },
+        changeGoods(sort) {
+            this.changeViewGoods(sort);
         }
     }
 }

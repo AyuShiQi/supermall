@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+let HomeView = () => import('@/views/home/HomeView');
+let DetailView = ()=>import('@/views/detail/DetailView');
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -11,7 +14,12 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: ()=>import('@/views/home/HomeView')
+    component: HomeView
+  },
+  {
+    path: '/detail/:iid',
+    name: 'detail',
+    component: DetailView
   }
 ]
 

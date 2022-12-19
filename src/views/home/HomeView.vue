@@ -1,12 +1,12 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeContent">
     <NavBar class="nav-bar">
       <template v-slot:center>购物街</template>
     </NavBar>
     <MySwiper :banners="banners"></MySwiper>
     <Recommend :recommends="recommends"></Recommend>
     <FeatureView/>
-    <MoreView/>
+    <MoreView :filter="filter" :goods="goods" :homeLoad="getGoods"/>
   </div>
 </template>
 
@@ -32,13 +32,15 @@ export default {
         // 评论信息
         recommends: [],
         // 关键字信息
-        dkeyword: null,
-        keywirds: null,
         goods: {
           'pop': {page: 0,list: []},
-          'news': {page: 0,list: []},
+          'new': {page: 0,list: []},
           'sell': {page: 0,list: []},
-        }
+        },
+        filter: [{title: '流行',sort: 'pop'},
+                 {title: '热销',sort: 'sell'},
+                 {title: '上新',sort: 'new'}
+        ]
       }
     },
     methods: {
@@ -46,25 +48,31 @@ export default {
         getHomeMultidata().then(res=>{
           this.banners = res.data.banner.list;
           this.recommends = res.data.recommend.list;
-          this.dkeyword = res.data.dkeyword;
-          this.keywords = res.data.keywords;
         });
       },
-      getGoods(type,page) {
+      getGoods(type) {
+        const page = this.goods[type].page + 1;
         getHomeGoods(type,page).then(res=>{
-          console.log(res);
+          this.goods[type].list.push(...res.data.list);
+          this.goods[type].page = res.data.page;
+          this.$store.commit('homeLoadEnd');
         });
       }
     },
     created() {
       this.getMultidata();
-      this.getGoods('pop',1);
+      for(let item of this.filter) {
+        this.getGoods(item.sort);
+      }
     }
 }
 </script>
 
 <style>
   .nav-bar {
+    display: fixed;
+    top: 0;
+    left: 0;
     color: #fff;
     background-color: var(--color-tint);
   }

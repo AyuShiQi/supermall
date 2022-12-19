@@ -28,10 +28,10 @@ export default {
     }
 
     .nav-bar-content .nav-bar {
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
-        z-index: 9;
+        z-index: 2;
         display: flex;
         width: 100%;
         height: 44px;
