@@ -4,7 +4,7 @@
         <p slot="center">购物车({{$store.state.cartTotal}})</p>
     </NavBar>
     <ul id="goodList">
-        <PayGoodCard v-for="(info,i) in $store.state.cart" :key="info.iid" :index="i" :info="info" @click.native="clickCard(info.iid)"/>
+        <PayGoodCard v-for="(info,i) in $store.state.cart" :key="info.iid" :index="i" :info="info"/>
     </ul>
     <FooterBar/>
   </div>

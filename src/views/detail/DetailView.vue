@@ -96,7 +96,6 @@ export default {
         getGoodInfo() {
             getGoodWithIID(this.iid)
             .then(data=>{
-                console.log(data);
                 this.result = data.result;
                 this.itemParams = data.result.itemParams;
                 this.rate = data.result.rate.list;

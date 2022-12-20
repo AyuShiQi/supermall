@@ -7,7 +7,7 @@
         <img :src="info.img" alt="省略图">
     </div>
     <div class="text">
-        <h3>{{info.title}}</h3>
+        <h3 @click="clickCard(info.iid)">{{info.title}}</h3>
         <p>{{info.desc}}</p>
         <div class="buy-info">
             <p class="price">￥{{getPrice(info.price)}}</p>
@@ -31,6 +31,9 @@ export default {
         }
     },
     methods: {
+        clickCard(iid) {
+            this.$router.push('/detail/'+iid);
+        },
         getPrice(price) {
             return (price).toFixed(2);
         },
