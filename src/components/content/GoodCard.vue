@@ -37,8 +37,8 @@ export default {
     .good-card .title {
         overflow: hidden;
         padding: 2px 5px;
-	    text-overflow:ellipsis;
-	    white-space: nowrap;
+	      text-overflow:ellipsis;
+	      white-space: nowrap;
     }
 
     .good-card .else-info {

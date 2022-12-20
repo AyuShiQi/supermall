@@ -5,10 +5,10 @@
         <ShopInfo :shopInfo="shopInfo"></ShopInfo>
         <ul class="detail-info">
             <li>{{detailInfo?.desc}}</li>
-            <li class="fenge"><img src="~@/assets/img/detail/fenge.webp" alt="分割线"></li>
+            <li class="fenge"><img src="~@/assets/img/detail/fenge.webp" alt="分割线" @load="loadImage"></li>
             <li v-for="detail in detailInfo?.detailImage" :key="detail.key" class="detail-img">
                 <p>{{detail.key}}</p>
-                <img v-for="img in detail.list" :key="img" :src="img" alt="详情">
+                <img v-for="img in detail.list" :key="img" :src="img" alt="详情" @load="loadImage">
             </li>
         </ul>
  </div>
@@ -18,6 +18,8 @@
 import MySwiper from './Swiper.vue'
 import GoodInfo from './GoodInfo.vue'
 import ShopInfo from './ShopInfo.vue'
+
+import { debounce } from '@/common/const'
 export default {
     name: 'DetailGoodView',
     components: {MySwiper,GoodInfo,ShopInfo},
@@ -25,6 +27,14 @@ export default {
     data() {
         return {
 
+        }
+    },
+    methods: {
+        debounce: debounce(),
+        loadImage() {
+            this.debounce(()=>{
+                this.$bus.$emit('loadImage');
+            })
         }
     }
 }

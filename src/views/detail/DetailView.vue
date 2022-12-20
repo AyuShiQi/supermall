@@ -20,7 +20,7 @@
         <DetailCommentView ref="CommentView" :rates="rate"/>
         <DetailRecommendView ref="RecommendView"/>
     </div>
-    <FooterBar></FooterBar>
+    <FooterBar :info="configInfo"></FooterBar>
   </div>
 </template>
 
@@ -35,6 +35,9 @@ import NavBar from '@/components/common/navbar/NavBar.vue'
 
 import { getGoodWithIID } from '@/network/detail'
 
+import { debounce } from '@/common/const'
+let fde = debounce();
+
 export default {
     name: 'Detail',
     components: {NavBar,FooterBar,
@@ -47,12 +50,15 @@ export default {
             currentIndex: 1,
             result: null,
             itemParams: null,
+            configInfo: {
+
+            },
             iid: '',
             rate: null,
             goodScroll: 0,
-            paramScroll: 10000,
-            commentScroll: 10000,
-            recommendScroll: 10000
+            paramScroll: 0,
+            commentScroll: 0,
+            recommendScroll: 0
         }
     },
     methods: {
@@ -90,24 +96,32 @@ export default {
         getGoodInfo() {
             getGoodWithIID(this.iid)
             .then(data=>{
+                console.log(data);
                 this.result = data.result;
                 this.itemParams = data.result.itemParams;
                 this.rate = data.result.rate.list;
+                this.configInfo = {
+                    iid: data.iid,
+                    img: data.result.itemInfo.topImages[0],
+                    title: data.result.itemInfo.title,
+                    desc: data.result.itemInfo.desc,
+                    price: new Number(data.result.itemInfo.highNowPrice),
+                    count: 1,
+                    choosed: false
+                }
             })
         },
-    },
-    created() {
-        this.currentIndex = 1;
+        loadImage() {
+            this.$bus.$on('loadImage',()=>{
+                this.paramScroll = this.$refs.ParamView.$el.offsetTop;
+                this.commentScroll= this.$refs.CommentView.$el.offsetTop;
+                this.recommendScroll = this.$refs.RecommendView.$el.offsetTop;
+            });
+        }
     },
     activated() {
         this.iid = this.$route.params.iid;
         this.getGoodInfo();
-        
-        setTimeout(()=>{
-            this.paramScroll = this.$refs.ParamView.$el.offsetTop;
-            this.commentScroll= this.$refs.CommentView.$el.offsetTop;
-            this.recommendScroll = this.$refs.RecommendView.$el.offsetTop;
-        },1000);
 
         this.$refs.detailContent.addEventListener('scroll',e=>{
             const top = e.target.scrollTop;
@@ -124,6 +138,8 @@ export default {
                 this.currentIndex = 4;
             }
         });
+
+        this.loadImage();
     },
     deactivated() {
         this.banners = null;
